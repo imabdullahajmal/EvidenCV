@@ -1,20 +1,5 @@
 require('dotenv').config(); // Load .env variables
 
-<<<<<<< HEAD
-// const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent`;
-
-async function generateResponse(prompt) {
-//   const response = await axios.post(
-//     `${GEMINI_API_URL}?key=${process.env.GEMINI_API_KEY}`,
-//     {
-//       contents: [{ parts: [{ text: prompt }] }]
-//     }
-//   );
-
-//   const message = response.data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
-    console.log(`${prompt} -  recieved`);
-    return `${prompt} -  recieved`;
-=======
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 // Initialize Gemini client
