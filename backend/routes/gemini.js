@@ -1,18 +1,16 @@
-const express = require('express');
+import express from 'express';
+import { generateResponse } from '../services/geminiService.js';
+
 const router = express.Router();
-const { generateResponse } = require('../services/geminiService');
 
 router.post('/', async (req, res) => {
-  const { userInput, context } = req.body;
-
   try {
-    const prompt = `Previous info: ${context || 'None'}\nUser: ${userInput}`;
-    const reply = await generateResponse(prompt);
-    res.json({ message: reply });
-  } catch (error) {
-    console.error('Gemini error:', error.message);
-    res.status(500).json({ error: 'Failed to generate response' });
+    const userInput = req.body.message;
+    const result = await generateResponse(userInput);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 
-module.exports = router;
+export default router;
