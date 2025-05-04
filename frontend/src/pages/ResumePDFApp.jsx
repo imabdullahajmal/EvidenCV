@@ -1,77 +1,94 @@
-import { useState, useEffect } from 'react';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { Send } from "lucide-react"; // send icon
 
-export default function ResumePDFApp() {
-  const [text, setText] = useState('');
-  const [submittedText, setSubmittedText] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [messages, setMessages] = useState([]);
+const ResumePDFApp = () => {
+  const [prompt, setPrompt] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState("");
 
-  const handleSubmit = () => {
-    if (text.trim()) {
-      setMessages([...messages, { sender: 'user', text }]);
-      setIsLoading(true);
-      setText(''); // Clear input field
+  const handleSubmit = async () => {
+    if (!prompt.trim()) return;
 
-      setTimeout(() => {
-        setMessages([...messages, { sender: 'user', text }, { sender: 'bot', text: 'Your resume is ready! You can download it soon.' }]);
-        setIsLoading(false);
-      }, 1500); // Simulate processing delay
-    }
+    setSubmitted(true);
+    setLoading(true);
+    setResponse("");
+
+    // Simulate API delay
+    setTimeout(() => {
+      setLoading(false);
+      setResponse("This is the simulated response from the API.");
+    }, 2000);
   };
 
-  useEffect(() => {
-    // Scroll to the bottom when new messages are added
-    const chatContainer = document.getElementById('chat-container');
-    chatContainer.scrollTop = chatContainer.scrollHeight;
-  }, [messages]);
-
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center py-6 px-4">
-      <div className="w-full max-w-lg bg-white rounded-lg shadow-lg p-6 space-y-4 flex flex-col">
-        <h1 className="text-3xl font-semibold text-center mb-6">Chat with PDF Generator</h1>
-
-        {/* Chat messages container */}
-        <div id="chat-container" className="flex flex-col space-y-4 max-h-96 overflow-y-auto flex-1">
-          {messages.map((msg, index) => (
-            <div
-              key={index}
-              className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} space-x-2`}
-            >
-              <div
-                className={`px-4 py-2 rounded-lg max-w-xs ${msg.sender === 'user' ? 'bg-blue-100 text-blue-800' : 'bg-gray-300 text-gray-800'}`}
-              >
-                <p>{msg.text}</p>
-              </div>
-            </div>
-          ))}
-
-          {/* Loading animation */}
-          {isLoading && (
-            <div className="self-start flex items-center space-x-2">
-              <div className="w-3 h-3 bg-gray-400 rounded-full animate-bounce [animation-delay:0s]"></div>
-              <div className="w-3 h-3 bg-gray-400 rounded-full animate-bounce [animation-delay:0.2s]"></div>
-              <div className="w-3 h-3 bg-gray-400 rounded-full animate-bounce [animation-delay:0.4s]"></div>
-              <span className="text-gray-600 ml-2">Processing...</span>
-            </div>
-          )}
-        </div>
-
-        {/* Input and Submit */}
-        <div className="flex flex-col space-y-2">
-          <textarea
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="Type your resume content here..."
-            className="w-full h-20 border border-gray-300 rounded-md p-3 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+      {!submitted && (
+        <motion.div
+          initial={{ y: 0 }}
+          animate={{ y: submitted ? 300 : 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex items-center bg-white p-2 rounded-xl shadow-md w-full max-w-md"
+        >
+          <input
+            type="text"
+            className="flex-grow border-none outline-none px-3 py-2"
+            placeholder="Enter your prompt..."
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
           />
           <button
             onClick={handleSubmit}
-            className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            className="text-blue-500 hover:text-blue-600 p-2"
           >
-            Submit
+            <Send className="w-5 h-5" />
           </button>
+        </motion.div>
+      )}
+
+      {submitted && (
+        <div className="fixed bottom-6 w-full max-w-md px-4">
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 120 }}
+            className="flex items-center bg-white p-2 rounded-xl shadow-md"
+          >
+            <input
+              type="text"
+              className="flex-grow border-none outline-none px-3 py-2"
+              placeholder="Enter your prompt..."
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+            />
+            <button
+              onClick={handleSubmit}
+              className="text-blue-500 hover:text-blue-600 p-2"
+            >
+              <Send className="w-5 h-5" />
+            </button>
+          </motion.div>
         </div>
+      )}
+
+      <div className="mt-6 text-center">
+        {loading && (
+          <div className="flex justify-center items-center space-x-2">
+            <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce" />
+            <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce [animation-delay:.2s]" />
+            <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce [animation-delay:.4s]" />
+          </div>
+        )}
+
+        {!loading && response && (
+          <div className="mt-4 bg-white p-4 rounded-xl shadow-sm max-w-md mx-auto">
+            {response}
+          </div>
+        )}
       </div>
     </div>
   );
-}
+};
+
+export default ResumePDFApp;
