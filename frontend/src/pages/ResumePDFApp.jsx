@@ -1,6 +1,60 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Send } from "lucide-react"; // send icon
+import ResumePreview from "../components/ResumePreview";
+
+let apiData = {
+  "name": "Mark Thompson",
+  "email": "mark.thompson@example.com",
+  "phone": "+1 (555) 789-1234",
+  "summary": "Software engineering student with 2 years of experience in frontend development using React and JavaScript. Passionate about building responsive user interfaces and seeking an internship to further develop skills in modern web technologies.",
+  "education": [
+    {
+      "degree": "Bachelor of Science in Computer Science",
+      "institution": "XYZ University",
+      "year": "2023"
+    }
+  ],
+  "skills": [
+    "React",
+    "JavaScript",
+    "HTML5",
+    "CSS3",
+    "TypeScript",
+    "Git",
+    "REST APIs"
+  ],
+  "experience": [
+    {
+      "job_title": "Frontend Developer Intern",
+      "company": "BrightTech Solutions",
+      "year_range": "Jun 2022 - Aug 2022",
+      "responsibilities": [
+        "Developed responsive user interfaces using React and Tailwind CSS.",
+        "Collaborated with backend developers to integrate RESTful APIs.",
+        "Participated in daily stand-ups and sprint planning meetings."
+      ],
+      "achievements": [
+        "Reduced page load time by 30% through optimized asset delivery.",
+        "Refactored components to improve reusability across the codebase."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "project_title": "Personal Portfolio Website",
+      "description": "Created a responsive portfolio to showcase projects and skills, with a custom contact form and interactive animations.",
+      "technologies": ["React", "Framer Motion", "Netlify"],
+      "year": "2023"
+    },
+    {
+      "project_title": "Task Manager App",
+      "description": "Built a full-stack task manager with user authentication, task CRUD operations, and a clean dashboard interface.",
+      "technologies": ["React", "Node.js", "Express", "MongoDB"],
+      "year": "2022"
+    }
+  ]
+}
 
 const ResumePDFApp = () => {
   const [prompt, setPrompt] = useState("");
@@ -83,7 +137,7 @@ const ResumePDFApp = () => {
 
         {!loading && response && (
           <div className="mt-4 bg-white p-4 rounded-xl shadow-sm max-w-md mx-auto">
-            {response}
+            <ResumePreview data={apiData} />
           </div>
         )}
       </div>
