@@ -3,8 +3,8 @@ import html2canvas from 'html2canvas'; // For image preview
 import jsPDF from 'jspdf'; // For generating the PDF
 
 const ResumePreviewAndDownload = ({ data }) => {
-  const resumeRef = useRef(null); // Ref to the resume container
-  const [imageUrl, setImageUrl] = useState(null); // State for storing image URL
+  const resumeRef = useRef(null);
+  const [imageUrl, setImageUrl] = useState(null);
 
   const {
     name,
