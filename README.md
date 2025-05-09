@@ -1,6 +1,4 @@
-I apologize for the confusion! It looks like I made an error and started providing information outside the generated code block. I'll correct that and give you the complete raw `README` content as intended:
 
-````markdown
 # Resume Builder App
 
 A dynamic resume builder app that allows users to input details via a text prompt, generate a preview in HTML, and download the resume as a PDF. The app uses an API to process the text input and generate the corresponding resume data, with an option to download the final resume in PDF format.
