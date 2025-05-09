@@ -137,7 +137,7 @@ const ResumePDFApp = () => {
 
         {!loading && response && (
           <div className="mt-4 bg-white p-4 rounded-xl shadow-sm max-w-md mx-auto">
-            <ResumePreview data={apiData} />
+            "ABC 123 TEST"
           </div>
         )}
       </div>

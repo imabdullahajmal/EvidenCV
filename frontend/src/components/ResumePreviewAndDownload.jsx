@@ -26,7 +26,7 @@ const ResumePreviewAndDownload = ({ data }) => {
   const generatePDF = () => {
     const doc = new jsPDF();
 
-    // Set up the document with text and styles, similar to how the HTML is structured
+
     doc.setFont("Helvetica");
     doc.text(name, 10, 10); // Adding Name
 
