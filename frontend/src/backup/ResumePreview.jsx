@@ -1,39 +1,16 @@
 import React from 'react';
-import { Loader2 } from 'lucide-react';
 
-const ResumePreview = ({ data = {}, isLoading }) => {
-    const {
-      name,
-      email,
-      phone,
-      summary,
-      skills = [],
-      education = [],
-      experience = [],
-      projects = []
-    } = data;
-  if (isLoading) {
-    return (
-      <div style={{
-        width: '210mm',
-        height: '297mm',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        transform: 'scale(0.5)',
-        transformOrigin: 'top left',
-        border: '1px solid #ccc',
-        background: '#fff',
-        fontFamily: "'Segoe UI', sans-serif",
-        color: '#333',
-      }}>
-        <div style={{ textAlign: 'center', color: '#666' }}>
-          <Loader2 className="animate-spin" style={{ fontSize: '2rem', marginBottom: '0.5rem' }} />
-          <p>Generating your resume...</p>
-        </div>
-      </div>
-    );
-  }
+const ResumePreview = ({ data }) => {
+  const {
+    name,
+    email,
+    phone,
+    summary,
+    skills = [],
+    education = [],
+    experience = [],
+    projects = []
+  } = data;
 
   const hasContact = email || phone;
 
@@ -50,7 +27,7 @@ const ResumePreview = ({ data = {}, isLoading }) => {
       color: '#333',
       padding: '20mm',
       boxSizing: 'border-box',
-      textAlign: 'left',
+      textAlign: 'left', // Ensuring all content is left-aligned
     }}>
       <div style={{ display: 'flex', height: '100%' }}>
         <div style={{
@@ -58,16 +35,16 @@ const ResumePreview = ({ data = {}, isLoading }) => {
           background: '#f4f4f4',
           padding: '10mm',
           textAlign: 'left',
-          boxSizing: 'border-box',
-          overflow: 'hidden',
+          boxSizing: 'border-box', // Ensures padding is inside the width
+          overflow: 'hidden', // Prevents overflow from the sidebar
         }}>
           <h1 style={{ fontSize: '24px', marginBottom: '10px' }}>{name}</h1>
           {hasContact && (
             <div style={{
               fontSize: '14px',
               marginBottom: '15px',
-              wordWrap: 'break-word',
-              maxWidth: '100%',
+              wordWrap: 'break-word', // Ensures text wraps properly
+              maxWidth: '100%', // Prevents overflow
             }}>
               {email && <p>Email: {email}</p>}
               {phone && <p>Phone: {phone}</p>}

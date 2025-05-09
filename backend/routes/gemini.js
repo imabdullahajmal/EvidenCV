@@ -3,7 +3,7 @@ import { generateResponse } from '../services/geminiService.js';
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.post('/generate', async (req, res) => {
   try {
     const userInput = req.body.message;
     const result = await generateResponse(userInput);
